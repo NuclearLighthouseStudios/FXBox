@@ -1,18 +1,14 @@
 design = true;
-
-/*[Hidden]*/
-alignment_size = 0.1;
+bed_center = [125, 105];
 
 module knob()
-{	
-	translate([0,0,0.5*25.4])
-	scale([1,1,-1])
+{
 	import("cad/knob.stl", convexity=3);
 }
 
 module pointer()
 {
-	translate([0,0,-0.1])
+	translate([0,0,0.5*25.4-0.25])
 	color([0.25,0.25,0.25])
 	linear_extrude(height = 0.3, center = false, convexity = 25)
 	{
@@ -21,38 +17,50 @@ module pointer()
 	}
 }
 
-module alignment()
+module tower()
 {
-	translate([-15,-15])
-	cylinder(r=alignment_size,h=0.1,center=true);
-
-	translate([15,-15])
-	cylinder(r=alignment_size,h=0.1,center=true);
-
-	translate([-15,15])
-	cylinder(r=alignment_size,h=0.1,center=true);
-
-	translate([15,15])
-	cylinder(r=alignment_size,h=0.1,center=true);
-}
-
-if(design)
-{
-	scale([-1,1,1])
-	intersection()
-	{
-		pointer();
-		knob();
-	}
-}
-else
-{
-	scale([-1,1,1])
 	difference()
 	{
-		knob();
-		pointer();
+		cylinder(r=12,h=0.5*25.4-0.25);
+		cylinder(r=11.5,h=0.6*25.4);
 	}
 }
 
-alignment();
+module part()
+{
+	if(design)
+	{
+		scale([-1,1,1])
+		intersection()
+		{
+			pointer();
+			knob();
+		}
+	}
+	else
+	{
+		scale([-1,1,1])
+		difference()
+		{
+			knob();
+			pointer();
+		}
+	}
+}
+
+translate(bed_center)
+{
+	if(design)
+	{
+		tower();
+	}
+
+	for ( x=[-1:1])
+	{
+		for ( y=[-1:1])
+		{
+			translate([x*75,y*75,0])
+			part();
+		}
+	}
+}
