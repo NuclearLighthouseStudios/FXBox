@@ -19,10 +19,10 @@ stl/knob-design.stl: knob.scad designs/knob-pointer.svg
 
 
 gcode/%-main.gcode: stl/%-main.stl fxbox-main.ini
-	prusa-slicer -g --load fxbox-main.ini -o $@ $<
+	prusa-slicer -g --load fxbox-main.ini --dont-arrange -o $@ $<
 
 gcode/%-design.gcode: stl/%-design.stl fxbox-design.ini
-	prusa-slicer -g --load fxbox-design.ini -o $@ $<
+	prusa-slicer -g --load fxbox-design.ini --dont-arrange -o $@ $<
 
 
 stl/%-box-design.stl: fxbox.scad designs/%/front.svg designs/%/holes.svg

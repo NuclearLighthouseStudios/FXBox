@@ -3,14 +3,13 @@ design_file = "designs/vector/front.svg";
 design = true;
 lid = false;
 
-/*[Hidden]*/
-alignment_size = 0.1;
+bed_center = [125, 105];
 
 module box()
-{	
+{
 	difference()
 	{
-		
+
 		translate([0,0,1.1*25.4])
 		scale([1,1,-1])
 		import("cad/fxbox-box.stl", convexity=3);
@@ -25,7 +24,7 @@ module box()
 }
 
 module lid()
-{	
+{
 	translate([0,0,0.15*25.4])
 	import("cad/fxbox-lid.stl", convexity=3);
 }
@@ -52,21 +51,8 @@ module front_graphics()
 	}
 }
 
-module alignment()
-{
-	translate([-30,-50])
-	cylinder(r=alignment_size,h=0.1,center=true);
 
-	translate([30,-50])
-	cylinder(r=alignment_size,h=0.1,center=true);
-
-	translate([-30,50])
-	cylinder(r=alignment_size,h=0.1,center=true);
-
-	translate([30,50])
-	cylinder(r=alignment_size,h=0.1,center=true);
-}
-
+translate(bed_center)
 if(lid)
 {
 	if(design)
@@ -109,5 +95,3 @@ else
 		}
 	}
 }
-
-alignment();
