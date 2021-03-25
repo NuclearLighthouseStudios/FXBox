@@ -24,6 +24,27 @@ Print the design first, with one color of filament, and clean up the priming loo
 For the knobs just print the `knob.stl` file, it will automatically request a filament change for printing the pointers once all the knobs are printed.
 
 
+## Assembly
+
+1. Insert the heat-set inserts using a soldering iron set to around 200°C/390°F. Make sure they go in straight.
+2. Place the effects PCB into the enclosure and fasten it using the 4 M3 PCB spacers.
+3. Mount the foot switch into the enclosure using an appropriate spacer to make sure it lines up right if required.
+4. Place the switchboard PCB into the enclosure using 3 spacers on each jack and lining it up with the foot switch.
+5. Tighten the nuts on the jacks, make sure everything is seated tightly, and solder in the foot switch.
+6. Place the lid onto the enclosure and fasten it in place using the 6 M3x10 bolts
+
+### BOM
+
+This is the additional hardware needed to assemble the enclosure.
+
+| Quantity | Description        |
+| -------: | :----------------- |
+| 6        | M3 heat-set insert |
+| 4        | M3 10mm PCB spacer |
+| 6        | M3x10 bolt         |
+
+
+
 ## Adding a new pedal
 
 Copy one of the existing designs and edit the main svg file to your liking.  
