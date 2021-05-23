@@ -9,7 +9,7 @@
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    sodipodi:docname="aurora.svg"
-   inkscape:version="1.0.1 (3bc2e813f5, 2020-09-07)"
+   inkscape:version="1.0.2 (e86c870879, 2021-01-15)"
    id="svg853"
    version="1.1"
    viewBox="0 0 59.689999 101.6"
@@ -2541,11 +2541,11 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.0823183"
-     inkscape:cx="112.19516"
-     inkscape:cy="224.63137"
+     inkscape:zoom="2.1646366"
+     inkscape:cx="118.3937"
+     inkscape:cy="218.54008"
      inkscape:document-units="in"
-     inkscape:current-layer="g1192"
+     inkscape:current-layer="layer1"
      showgrid="false"
      inkscape:snap-page="true"
      inkscape:snap-intersection-paths="true"
@@ -2689,12 +2689,12 @@
     </rdf:RDF>
   </metadata>
   <g
-     sodipodi:insensitive="true"
      inkscape:label="Front Outline"
      inkscape:groupmode="layer"
      id="layer1"
      transform="translate(0,-195.4)"
-     style="display:inline">
+     style="display:inline"
+     sodipodi:insensitive="true">
     <path
        sodipodi:type="inkscape:offset"
        inkscape:radius="-1.268091"
@@ -2715,18 +2715,18 @@
        cx="29.845022"
        cy="223.99052"
        r="9" />
+    <path
+       style="font-variation-settings:normal;display:inline;vector-effect:none;fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.254;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:0.508, 0.254;stroke-dashoffset:2.54;stroke-opacity:1;marker:none;stop-color:#000000"
+       d="m 36.194999,280.48999 a 6.3499999,6.3499999 0 0 0 -6.35,-6.35 6.3499999,6.3499999 0 0 0 -6.35,6.35 6.3499999,6.3499999 0 0 0 6.35,6.35 6.3499999,6.3499999 0 0 0 6.35,-6.35 z"
+       id="circle2"
+       inkscape:connector-curvature="0" />
   </g>
   <g
-     sodipodi:insensitive="true"
      inkscape:groupmode="layer"
      id="layer5"
      inkscape:label="Front Holes"
-     style="display:inline">
-    <path
-       style="display:inline;fill:none;stroke:#000000;stroke-width:0.254;stroke-miterlimit:4;stroke-dasharray:none"
-       d="m 36.194999,85.08999 a 6.3499999,6.3499999 0 0 0 -6.35,-6.350002 6.3499999,6.3499999 0 0 0 -6.35,6.350002 6.3499999,6.3499999 0 0 0 6.35,6.35 6.3499999,6.3499999 0 0 0 6.35,-6.35 z"
-       id="circle2"
-       inkscape:connector-curvature="0" />
+     style="display:inline"
+     sodipodi:insensitive="true">
     <path
        style="display:inline;fill:none;stroke:#000000;stroke-width:0.254;stroke-miterlimit:4;stroke-dasharray:none"
        d="m 33.401,28.59 a 3.5559999,3.5559999 0 0 0 -3.556,-3.556 3.5559999,3.5559999 0 0 0 -3.556,3.556 3.5559999,3.5559999 0 0 0 3.556,3.556 3.5559999,3.5559999 0 0 0 3.556,-3.556 z"
