@@ -1,9 +1,10 @@
 holes_file = "designs/vector/holes.svg";
 design_file = "designs/vector/front.svg";
-design = true;
+design = false;
 lid = false;
 
 bed_center = [125, 105];
+offset = 40;
 
 module box()
 {
@@ -55,6 +56,7 @@ module front_graphics()
 translate(bed_center)
 if(lid)
 {
+	translate([-offset, 0, 0])
 	if(design)
 	{
 		scale([-1,1,1])
@@ -76,6 +78,7 @@ if(lid)
 }
 else
 {
+	translate([offset, 0, 0])
 	if(design)
 	{
 		scale([-1,1,1])
