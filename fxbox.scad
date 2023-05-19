@@ -1,5 +1,8 @@
-holes_file = "designs/vector/holes.svg";
-design_file = "designs/vector/front.svg";
+holes = "designs/holes-2-upper.svg";
+front_design = "designs/vector/vector-front.svg";
+back_design = "designs/vector/vector-back.svg";
+box_base = "cad/fxbox-box.stl";
+lid_base = "cad/fxbox-lid.stl";
 design = false;
 lid = false;
 
@@ -10,16 +13,15 @@ module box()
 {
 	difference()
 	{
-
 		translate([0,0,1.1*25.4])
 		scale([1,1,-1])
-		import("cad/fxbox-box.stl", convexity=3);
-
+		import(box_base, convexity=3);
+		
 		translate([0,0,-0.1])
 		linear_extrude(height = 25, center = false, convexity = 10)
 		{
 			translate([ -2.35/2.0*25.4, -4.0/2.0*25.4 ])
-			import(file = holes_file);
+			import(file = holes);
 		}
 	}
 }
@@ -27,7 +29,7 @@ module box()
 module lid()
 {
 	translate([0,0,0.15*25.4])
-	import("cad/fxbox-lid.stl", convexity=3);
+	import(lid_base, convexity=3);
 }
 
 module back_graphics()
@@ -37,7 +39,7 @@ module back_graphics()
 	linear_extrude(height = 0.3, center = false, convexity = 25)
 	{
 		translate([ -2.35/2.0*25.4, -4.0/2.0*25.4 ])
-		import(file = design_file);
+		import(file = back_design);
 	}
 }
 
@@ -48,7 +50,7 @@ module front_graphics()
 	linear_extrude(height = 0.3, center = false, convexity = 25)
 	{
 		translate([ -2.35/2.0*25.4, -4.0/2.0*25.4 ])
-		import(file = design_file);
+		import(file = front_design);
 	}
 }
 

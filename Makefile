@@ -1,57 +1,59 @@
 .SUFFIXES:
 .SECONDARY:
 
-slicer=prusa-slicer
+slicer = prusa-slicer
 
-boxes=$(patsubst designs/%/,%,$(wildcard designs/*/))
+stl_base_dir = ./stl/
+gcode_base_dir = ./gcode/
 
-all: $(boxes:%=gcode/%-box-design.gcode)
-all: $(boxes:%=gcode/%-box-main.gcode)
-all: $(boxes:%=gcode/%-lid-design.gcode)
-all: $(boxes:%=gcode/%-lid-main.gcode)
+all: knobs boxes
 
-all: gcode/knob.gcode
+.PHONY: knobs
+.PHONY: boxes
 
-
-stl/knob-main.stl: knob.scad cad/knob.stl designs/knob-pointer.svg
-	openscad -o $@ -D "design=false" $<
-
-stl/knob-design.stl: knob.scad cad/knob.stl designs/knob-pointer.svg
-	openscad -o $@ -D "design=true" $<
+include $(wildcard designs/*/*.mk)
+include $(wildcard designs/knobs/*/*.mk)
 
 
-gcode/knob.gcode: gcode/knob-main.gcode gcode/knob-design.gcode
-	awk 'f==0{print}; /;KNOB-END/{f=1}' gcode/knob-main.gcode > $@
-	awk 'f==1{print}; /;12.6/{f=1}' gcode/knob-design.gcode >> $@
+$(stl_base_dir)%/box-design.stl:
+	openscad -o $@  -D "box_base=\"$(word 2,$^)\"" -D "front_design=\"$(word 3,$^)\"" -D "holes=\"$(word 4,$^)\"" -D "design=true" -D "lid=false" $<
 
-gcode/knob-main.gcode: stl/knob-main.stl knob.ini
-	$(slicer) -g --load knob.ini --dont-arrange --split --end-filament-gcode '"M600\n;KNOB-END"' -o $@ $<
+$(stl_base_dir)%/box-main.stl:
+	openscad -o $@  -D "box_base=\"$(word 2,$^)\"" -D "front_design=\"$(word 3,$^)\"" -D "holes=\"$(word 4,$^)\"" -D "design=false" -D "lid=false" $<
 
-gcode/knob-design.gcode: stl/knob-design.stl fxbox-design.ini
-	$(slicer) -g --load fxbox-design.ini --dont-arrange -o $@ $<
+$(stl_base_dir)%/lid-design.stl:
+	openscad -o $@  -D "lid_base=\"$(word 2,$^)\"" -D "back_design=\"$(word 3,$^)\"" -D "design=true" -D "lid=true" $<
 
-
-
-gcode/%-main.gcode: stl/%-main.stl fxbox-main.ini
-	$(slicer) -g --load fxbox-main.ini --dont-arrange -o $@ $<
-
-gcode/%-design.gcode: stl/%-design.stl fxbox-design.ini
-	$(slicer) -g --load fxbox-design.ini --dont-arrange -o $@ $<
+$(stl_base_dir)%/lid-main.stl:
+	openscad -o $@  -D "lid_base=\"$(word 2,$^)\"" -D "back_design=\"$(word 3,$^)\"" -D "design=false" -D "lid=true" $<
 
 
-stl/%-box-design.stl: fxbox.scad cad/fxbox-box.stl designs/%/front.svg designs/%/holes.svg
-	openscad -o $@ -D "design_file=\"designs/$*/front.svg\"" -D "holes_file=\"designs/$*/holes.svg\"" -D "design=true" -D "lid=false" $<
+$(gcode_base_dir)%-main.gcode: $(stl_base_dir)%-main.stl configs/fxbox-main.ini
+	$(slicer) -g --load configs/fxbox-main.ini --dont-arrange -o $@ $<
 
-stl/%-box-main.stl: fxbox.scad cad/fxbox-box.stl designs/%/front.svg designs/%/holes.svg
-	openscad -o $@ -D "design_file=\"designs/$*/front.svg\"" -D "holes_file=\"designs/$*/holes.svg\"" -D "design=false" -D "lid=false" $<
+$(gcode_base_dir)%-design.gcode: $(stl_base_dir)%-design.stl configs/fxbox-design.ini
+	$(slicer) -g --load configs/fxbox-design.ini --dont-arrange -o $@ $<
 
-stl/%-lid-design.stl: fxbox.scad cad/fxbox-lid.stl designs/%/back.svg
-	openscad -o $@ -D "design_file=\"designs/$*/back.svg\"" -D "design=true" -D "lid=true" $<
 
-stl/%-lid-main.stl: fxbox.scad cad/fxbox-lid.stl designs/%/back.svg
-	openscad -o $@ -D "design_file=\"designs/$*/back.svg\"" -D "design=false" -D "lid=true" $<
+
+$(stl_base_dir)%/knob-body.stl:
+	openscad -o $@ -D "base=\"$(word 2,$^)\"" -D "design=\"$(word 3,$^)\"" -D "pointer=false" $<
+
+$(stl_base_dir)%/knob-pointer.stl:
+	openscad -o $@ -D "base=\"$(word 2,$^)\"" -D "design=\"$(word 3,$^)\"" -D "pointer=true" $<
+
+
+$(gcode_base_dir)%/knob.gcode: $(gcode_base_dir)%/knob-body.gcode $(gcode_base_dir)%/knob-pointer.gcode
+	awk 'f==0{print}; /;KNOB-END/{f=1}' $(word 1,$^) > $@
+	awk 'f==1{print}; /;AFTER_LAYER_CHANGE/{f=1}' $(word 2,$^) >> $@
+
+$(gcode_base_dir)%/knob-body.gcode: $(stl_base_dir)%/knob-body.stl configs/knob.ini
+	$(slicer) -g --load configs/knob.ini --dont-arrange --split --end-filament-gcode '"M600\n;KNOB-END"' -o $@ $<
+
+$(gcode_base_dir)%/knob-pointer.gcode: $(stl_base_dir)%/knob-pointer.stl configs/fxbox-design.ini
+	$(slicer) -g --load configs/fxbox-design.ini --dont-arrange --skirts 0 -o $@ $<
 
 
 .PHONY: clean
 clean:
-	rm -f gcode/*.gcode stl/*.stl
+	-rm -rf $(stl_base_dir) $(gcode_base_dir)

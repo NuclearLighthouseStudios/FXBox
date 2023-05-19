@@ -1,9 +1,12 @@
-design = true;
+design = "designs/knobs/plain/plain-pointer.svg";
+base = "cad/knob.stl";
+pointer = false;
+
 bed_center = [125, 105];
 
 module knob()
 {
-	import("cad/knob.stl", convexity=3);
+	import(base, convexity=3);
 }
 
 module pointer()
@@ -13,22 +16,13 @@ module pointer()
 	linear_extrude(height = 0.3, center = false, convexity = 25)
 	{
 		translate([ -0.7/2.0*25.4, -0.7/2.0*25.4 ])
-		import(file = "designs/knob-pointer.svg");
-	}
-}
-
-module tower()
-{
-	difference()
-	{
-		cylinder(r=12,h=0.5*25.4-0.25);
-		cylinder(r=11.5,h=0.6*25.4);
+		import(file = design);
 	}
 }
 
 module part()
 {
-	if(design)
+	if(pointer)
 	{
 		scale([-1,1,1])
 		intersection()
@@ -50,9 +44,9 @@ module part()
 
 translate(bed_center)
 {
-	if(design)
+	if(pointer)
 	{
-		tower();
+		cylinder(r=0.1,h=0.1);
 	}
 
 	for ( x=[-1:1])
