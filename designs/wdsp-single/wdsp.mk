@@ -1,7 +1,7 @@
-name := wdsp
+name := wdsp-single
 dsp := true
 front := wdsp-front.svg
 back := wdsp-back.svg
-holes := ../holes/holes-2-upper.svg
+holes := ../holes/holes-single.svg
 
 include designs/box.mk

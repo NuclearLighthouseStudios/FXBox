@@ -16,16 +16,16 @@ include $(wildcard designs/knobs/*/*.mk)
 
 
 $(stl_base_dir)%/box-design.stl:
-	openscad -o $@  -D "box_base=\"$(word 2,$^)\"" -D "front_design=\"$(word 3,$^)\"" -D "holes=\"$(word 4,$^)\"" -D "design=true" -D "lid=false" $<
+	openscad -o $@ -D "box_base=\"$(word 2,$^)\"" -D "front_design=\"$(word 3,$^)\"" -D "holes=\"$(word 4,$^)\"" -D "design=true" -D "lid=false" $<
 
 $(stl_base_dir)%/box-main.stl:
-	openscad -o $@  -D "box_base=\"$(word 2,$^)\"" -D "front_design=\"$(word 3,$^)\"" -D "holes=\"$(word 4,$^)\"" -D "design=false" -D "lid=false" $<
+	openscad -o $@ -D "box_base=\"$(word 2,$^)\"" -D "front_design=\"$(word 3,$^)\"" -D "holes=\"$(word 4,$^)\"" -D "design=false" -D "lid=false" $<
 
 $(stl_base_dir)%/lid-design.stl:
-	openscad -o $@  -D "lid_base=\"$(word 2,$^)\"" -D "back_design=\"$(word 3,$^)\"" -D "design=true" -D "lid=true" $<
+	openscad -o $@ -D "lid_base=\"$(word 2,$^)\"" -D "back_design=\"$(word 3,$^)\"" -D "design=true" -D "lid=true" $<
 
 $(stl_base_dir)%/lid-main.stl:
-	openscad -o $@  -D "lid_base=\"$(word 2,$^)\"" -D "back_design=\"$(word 3,$^)\"" -D "design=false" -D "lid=true" $<
+	openscad -o $@ -D "lid_base=\"$(word 2,$^)\"" -D "back_design=\"$(word 3,$^)\"" -D "design=false" -D "lid=true" $<
 
 
 $(gcode_base_dir)%-main.gcode: $(stl_base_dir)%-main.stl configs/fxbox-main.ini

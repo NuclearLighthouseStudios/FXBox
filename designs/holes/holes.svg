@@ -434,7 +434,7 @@
   <g
      inkscape:groupmode="layer"
      id="layer5"
-     inkscape:label="Front Holes 2 Upper"
+     inkscape:label="Front Holes Double Upper"
      style="display:none"
      sodipodi:insensitive="true">
     <path
@@ -456,7 +456,7 @@
   <g
      inkscape:groupmode="layer"
      id="g821"
-     inkscape:label="Front Holes 2 Lower"
+     inkscape:label="Front Holes Double Lower"
      style="display:none"
      sodipodi:insensitive="true">
     <path
@@ -478,7 +478,7 @@
   <g
      inkscape:groupmode="layer"
      id="g674"
-     inkscape:label="Front Holes 2x2"
+     inkscape:label="Front Holes Quad"
      style="display:inline"
      sodipodi:insensitive="true">
     <path
