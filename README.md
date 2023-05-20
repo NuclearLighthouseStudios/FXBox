@@ -51,5 +51,7 @@ Copy one of the existing designs and edit the main svg file to your liking.
 Afterwards save the "Back Graphics", "Front Graphics" and "Front Holes" layers as plain svg files.
 Make sure the file only contains filled paths without strokes and no groups.
 It's best to ungroup everything and use the "Object to path" and "Stroke to path" commands in inkscape.
+Adjust the .mk file in the pedal directory to include the name of your design,
+and the correct file names for the front, back and hole SVGs.
 
 Once your design is ready run `make` to generate the STLs and gcode.
